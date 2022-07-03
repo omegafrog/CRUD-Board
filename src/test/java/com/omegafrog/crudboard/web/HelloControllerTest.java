@@ -1,4 +1,4 @@
-package com.omegafrog.crudboard.Web;
+package com.omegafrog.crudboard.web;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

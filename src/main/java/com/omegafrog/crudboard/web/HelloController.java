@@ -1,8 +1,7 @@
-package com.omegafrog.crudboard.Web;
+package com.omegafrog.crudboard.web;
 
-import com.omegafrog.crudboard.Dto.HelloResponseDto;
+import com.omegafrog.crudboard.dto.HelloResponseDto;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 

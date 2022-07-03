@@ -1,4 +1,4 @@
-package com.omegafrog.crudboard.Dto;
+package com.omegafrog.crudboard.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
