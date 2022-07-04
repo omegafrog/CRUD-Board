@@ -1,10 +1,12 @@
 package com.omegafrog.crudboard.domain;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Getter
 @NoArgsConstructor // parameter가 없는 기본 생성자 정의
 @Entity
 public class Posts {
