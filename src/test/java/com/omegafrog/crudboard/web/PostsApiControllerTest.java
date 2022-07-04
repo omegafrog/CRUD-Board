@@ -63,6 +63,35 @@ public class PostsApiControllerTest {
         List<Posts> all = postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(title);
         assertThat(all.get(0).getContent()).isEqualTo(content);
+    }
+    @Test
+    public void Posts_수정된다() throws Exception{
+        //given
+        String author = "author";
+        String title2= "title2";
+        String content2 = "content2";
 
+        Posts posts = Posts.builder()
+                .title("title")
+                .content("content")
+                .author(author)
+                .build();
+
+        PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder()
+                .title(title2)
+                .content(content2)
+                .author(author)
+                .build();
+
+        Long id = postsRepository.save(posts).getId();
+
+        String url = "http://localhost:"+port+"/api/v1/posts/"+id;
+        ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url,requestDto,Long.class);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody()).isGreaterThan(0L);
+        List<Posts> all = postsRepository.findAll();
+        assertThat(all.get(0).getTitle()).isEqualTo(title2);
+        assertThat(all.get(0).getContent()).isEqualTo(content2);
     }
 }
