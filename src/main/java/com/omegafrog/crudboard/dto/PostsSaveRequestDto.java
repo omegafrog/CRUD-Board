@@ -1,5 +1,6 @@
 package com.omegafrog.crudboard.dto;
 
+import com.omegafrog.crudboard.domain.Posts;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

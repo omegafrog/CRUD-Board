@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+
 @RequiredArgsConstructor
 @Service
 public class PostsService {
@@ -15,5 +17,13 @@ public class PostsService {
     @Transactional
     public Long save(PostsSaveRequestDto requestDto){
         return postsRepository.save(requestDto.toEntity()).getId();
+    }
+
+    @Transactional
+    public Long update(Long id, PostsSaveRequestDto requestDto){
+        Posts posts = postsRepository.findById(id).orElseThrow(()->
+            new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+
+        return posts.update(requestDto.getTitle(), requestDto.getContent());
     }
 }
