@@ -14,12 +14,6 @@ public class PostsService {
     private final PostsRepository postsRepository;
     @Transactional
     public Long save(PostsSaveRequestDto requestDto){
-        Posts post = Posts.builder()
-                .title(requestDto.getTitle())
-                .content(requestDto.getContent())
-                .author(requestDto.getAuthor())
-                .build();
-
-        return postsRepository.save(post).getId();
+        return postsRepository.save(requestDto.toEntity()).getId();
     }
 }
