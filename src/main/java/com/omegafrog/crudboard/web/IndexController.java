@@ -1,6 +1,8 @@
 package com.omegafrog.crudboard.web;
 
+import com.omegafrog.crudboard.config.auth.LoginUser;
 import com.omegafrog.crudboard.config.auth.dto.SessionUser;
+import com.omegafrog.crudboard.domain.user.User;
 import com.omegafrog.crudboard.dto.PostsListResponseDto;
 import com.omegafrog.crudboard.dto.PostsResponseDto;
 import com.omegafrog.crudboard.service.PostsService;
@@ -21,10 +23,9 @@ public class IndexController {
     private final PostsService postsService;
     private final HttpSession httpSession;
     @GetMapping("/")
-    public String home(Model model){
+    public String home(Model model, @LoginUser User user){
         List<PostsListResponseDto> postsListResponseDto = postsService.findAllDesc();
         model.addAttribute("posts", postsListResponseDto);
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
         if(user!=null){
             model.addAttribute("userName", user.getName());
         }
