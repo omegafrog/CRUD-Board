@@ -90,3 +90,4 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 /.gradle/
+/src/main/resources/application-oauth.properties

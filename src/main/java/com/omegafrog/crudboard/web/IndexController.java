@@ -1,5 +1,6 @@
 package com.omegafrog.crudboard.web;
 
+import com.omegafrog.crudboard.config.auth.dto.SessionUser;
 import com.omegafrog.crudboard.dto.PostsListResponseDto;
 import com.omegafrog.crudboard.dto.PostsResponseDto;
 import com.omegafrog.crudboard.service.PostsService;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -17,10 +19,15 @@ public class IndexController {
 
 
     private final PostsService postsService;
+    private final HttpSession httpSession;
     @GetMapping("/")
     public String home(Model model){
         List<PostsListResponseDto> postsListResponseDto = postsService.findAllDesc();
         model.addAttribute("posts", postsListResponseDto);
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        if(user!=null){
+            model.addAttribute("userName", user.getName());
+        }
         return "index";
     }
 
