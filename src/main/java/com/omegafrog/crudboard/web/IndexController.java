@@ -21,9 +21,8 @@ public class IndexController {
 
 
     private final PostsService postsService;
-    private final HttpSession httpSession;
     @GetMapping("/")
-    public String home(Model model, @LoginUser User user){
+    public String home(Model model, @LoginUser SessionUser user){
         List<PostsListResponseDto> postsListResponseDto = postsService.findAllDesc();
         model.addAttribute("posts", postsListResponseDto);
         if(user!=null){
