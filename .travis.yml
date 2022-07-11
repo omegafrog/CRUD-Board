@@ -19,9 +19,12 @@ notifications:
       - "jiwoo22110103@gmail.com"
 
 before_deploy:
-  - zip -r CRUD-BOARD *
-  - mkdir -p deploy
-  - mv CRUD-BOARD.zip deploy/CRUD-BOARD.zip
+  - mkdir -p before-deploy
+  - cp scripts/*.sh before-deploy/
+  - cp appspec.yml before-deploy/
+  - cd before-deploy && zip -r before-deploy *
+  - cd ../ && mkdir -p deploy
+  - mv before-deploy/before-deploy.zip deploy/CRUD-BOARD.zip
 
 deploy:
   - provider: s3
@@ -32,4 +35,18 @@ deploy:
     skip_cleanup: true
     acl: private
     local_dir: deploy
+    wait-until-deployed: true
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+
+    bucket: spring-jar-bucket
+    key:  CRUD-BOARD.zip
+
+    bundle-type: zip
+    application: crudboard
+
+    deployment_group: crud-board-group
+
+    region: ap-northeast-2
     wait-until-deployed: true
